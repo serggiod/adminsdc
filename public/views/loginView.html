@@ -1,0 +1,42 @@
+<div class="container-fluid" ng-controller="loginController">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>
+						Login
+					</h4>
+				</div>
+				<div class="panel-body">
+
+					<!-- Contenedor de Alertas -->
+					<div id="alerts" class="alerts"></div>
+
+					<!-- Formulario -->
+					<div class="form">
+
+						<!-- Control Uuario -->
+						<div class="form-group">
+							<label for="usuario">Usuario:</label>
+							<input type="text" id="usuario" name="usuario" class="form-control" ng-model="usuario" maxlength="8" />
+						</div>
+
+						<!-- Control Password -->
+						<div class="form-group">
+							<label for="password">Password:</label>
+							<input type="password" id="password" name="password" class="form-control" ng-model="password" maxlength="8" />
+						</div>
+
+					</div>
+					<!-- /Formulario -->
+
+				</div>
+				<div class="panel-footer">
+					<a class="btn btn-primary" ng-click="login()">
+						Ingresar
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
