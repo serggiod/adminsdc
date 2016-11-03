@@ -1,16 +1,22 @@
-from django.shortcuts  import render
-from django.http       import HttpResponse
+from django.shortcuts      import render
+from django.http           import HttpResponse
+from actividad.controllers import indexController
+from actividad.controllers import autenticationController
 
 # Create your views here.
 
-def index(request):
-    return HttpResponse("Hola Mundo.")
+def index(response):
+    json = indexController.index()
+    return HttpResponse(json)
 
 def login(request,user,passw):
-    return HttpResponse('Usuario: '+user+' '+passw)
+    json = autenticationController.login(user,passw)
+    return HttpResponse(json)
 
 def logout(request,sessId):
-    return HttpResponse('Logout Page: '+sessId)
+    json = autenticationController.logout(sessId)
+    return HttpResponse(json)
 
 def status(request,sessId):
-    return HttpResponse('Status Page: '+sessId)
+    json = autenticationController.status(sessId)
+    return HttpResponse(json)
