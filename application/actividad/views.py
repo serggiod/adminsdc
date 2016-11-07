@@ -1,19 +1,14 @@
-from django.http           import HttpResponse              as response
-from actividad.controllers import indexController           as index
-from actividad.controllers import autenticationController   as auth
+from actividad.controllers import indexController
+from actividad.controllers import autenticationController
 
 def index(request):
-    json = index.index()
-    return response(json)
+    return indexController.index(request)
 
-def login(request,user,passw):
-    json = auth.login(request,user,passw)
-    return response(json)
+def login(request):
+    return autenticationController.login(request)
 
 def logout(request):
-    json = auth.logout(request)
-    return response(json)
+    return autenticationController.logout(request)
 
 def status(request):
-    json = auth.status(request)
-    return response(json)
+    return autenticationController.status(request)

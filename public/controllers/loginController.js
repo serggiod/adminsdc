@@ -19,8 +19,9 @@ angular
 					password = md5.createHash($scope.password);
 
 					$http
-						.post('models/login.php/'+usuario+'/'+password)
+						.post('/rest-adminadd/login',{user:usuario,passw:password})
 						.success((json)=>{
+							console.log(json);
 							if(json.result){
 								$location.path('/actividad')
 								$rootScope.btnLogout = true;

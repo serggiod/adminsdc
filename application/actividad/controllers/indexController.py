@@ -1,8 +1,8 @@
+from django.http import HttpRequest,HttpResponse,HttpResponseNotFound
 import json as JSON
 
-def index():
-    json = JSON.dumps({
-        'result':1,
-        'rows':'Hola mundo.'
-    })
-    return json
+def index(request):
+    if(request.method=="GET"):
+        return HttpResponse(JSON.dumps({'result':True,'rows':''}))
+    else:
+        return HttpResponseNotFound('')

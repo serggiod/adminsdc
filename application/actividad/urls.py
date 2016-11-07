@@ -1,9 +1,10 @@
 from django.conf.urls import url
-from . import views
+from actividad import views
+from rest_framework import routers
 
 urlpatterns = [
     url(r'^$',views.index),
-    url(r'^login/(?P<user>[0-9\-]{13})/(?P<passw>[a-z0-9]{30,35})',views.login),
+    url(r'^login',views.login),
     url(r'^logout',views.logout),
     url(r'^status',views.status)
 ]
