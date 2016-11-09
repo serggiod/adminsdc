@@ -10,7 +10,7 @@ def index(request):
 
 # Login.
 def login(request):
-    if request.method=='post':
+    if request.method=='POST':
         return autenticationController.post(request)
     if request.method=='GET':
         return autenticationController.get(request)
@@ -24,8 +24,8 @@ def actividadEventos(request):
 def actividadTipos(request):
     return actividadTiposController.all(request)
 
-def actividadTipos(request):
-    return actividadTiposController.all(request)
+def actividadArchivos(request):
+    return actividadArchivosController.all(request)
 
 def actividadEvento(request,id):
     if request.method=='GET':
