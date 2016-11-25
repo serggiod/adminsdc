@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="adminadd">
+<html lang="es" ng-app="legapp">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -22,8 +22,6 @@
 			<script src="/jscdn/angular/angular.min.js"></script>
 			<script src="/jscdn/angular-route/angular-route.min.js"></script>
 			<script src="/jscdn/angular-sanitize/angular-sanitize.min.js"></script>
-			<script src="/jscdn/angular-md5/angular-md5.min.js"></script>
-			<script src="/jscdn/angular-animate/angular-animate.min.js"></script>
 			<script src="/jscdn/angular-animate/angular-animate.min.js"></script>
 			<script src="/jscdn/angular-strap/dist/angular-strap.min.js"></script>
 			<script src="/jscdn/angular-strap/dist/angular-strap.tpl.min.js"></script>
@@ -39,27 +37,28 @@
 			<!-- addservice -->
 
 			<!-- Aplicacion Angular: Factorias -->
+			<script src="/login/factory/session.js"></script>
 			<!-- addfactory -->
 
 			<!-- Aplicacion Angular: Controladores --> 
-
-			<script src="controllers/loginController.js"></script>
-			<script src="controllers/logoutController.js"></script>
 			<script src="controllers/actividadController.js"></script>
 			<!-- addcontroller -->
 
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						Legislatura | Administraci&oacute;n | Actividad del D&iacute;a
+						Legislatura | Administraci&oacute;n | Actividad del D&iacute;a :: Hola {{usuario}} 
 					</h3>
 				</div>
-				<div class="panel-body">
+				<div class="panel-body" ng-show="stage">
 					<ng-view class="container-fluid"></ng-view>	
 				</div>
-				<div class="panel-footer" ng-show="btnLogout">
-					<a href="#/logout" class="btn btn-info">
-						Salir de la Aplicaci&oacute;n
+				<div class="panel-footer">
+					<a href="/login/#/applications" class="btn btn-primary">
+						<i class="glyphicon glyphicon-th-list"></i>
+					</a>
+					<a href="/login/#/logout" class="btn btn-primary">
+						<i class="glyphicon glyphicon-off"></i>
 					</a>
 				</div>
 			</div>

@@ -1,17 +1,143 @@
 <div class="conainer-fluid" ng-controller="actividadController">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row" ng-show="formulario">
+        <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4>
-                        Lista de Actividad del D&iacute;a
+                    <h4 class="panel-title text-capitalize">
+                        ACTIVIDAD DEL DIA / Formulario
                     </h4>
                 </div>
                 <div class="panel-body">
                     
+                    <!-- id -->
+                    <div class="input-field">
+                        <label >ID: {{id}}</label>
+                    </div>
+
+                    <!-- Titulo -->
+                    <div class="input-field">
+                        <label for="titulo">Titulo:</label>
+                        <br/>
+                        <input class="form-control" id="titulo" type="text" maxlength="100" ng-model="titulo">
+                    </div>
+
+                    <!-- Actividad -->
+                    <div class="input-field">
+                        <label for="actividad">Actividad:</label>
+                        <br/>
+                        <textarea class="form-control" id="actividad" ng-model="actividad"></textarea>
+                    </div>
+
+                    <!-- Fecha -->
+                    <div class="input-field">
+                        <label for="titulo">Fecha:</label>
+                        <br/>
+                        <input class="form-control" id="fecha" type="date" ng-model="fecha">
+                    </div>
+
+                    <!-- Requisitos -->
+                    <div class="input-field">
+                        <label for="requisitos">Requisitos:</label>
+                        <br/>
+                        <input class="form-control" id="requisitos" type="text" maxlength="100" ng-model="requisitos">
+                    </div>
+
                 </div>
+                <div class="panel-footer" ng-show="fnuevo">
+                    <button class="btn btn-danger" ng-click="ncancel()">Cancelar</button>
+                    <button class="btn btn-success" ng-click="nacept()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert: Confirm Edit -->
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Confirmar: Editar
+                    </h4>
+                </div>
+                <div class="panel-body">¿Esta seguro que dese editar este registro?</div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-danger">Cancelar</button>
+                <button class="btn btn-success">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert: Confirm Delete -->
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Confirmar: Eliminar
+                    </h4>
+                </div>
+                <div class="panel-body">¿Esta seguro que desea eliminar este registro?</div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-danger">Cancelar</button>
+                <button class="btn btn-success">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert: -->
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+        </div>
+    </div>
+
+    <div class="row" ng-show="lista">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        ACTIVIDAD DEL DIA / Lista
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <button class="btn btn-success" ng-click="nuevo()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                    <table class="table table-striped table-hover table-bordered table-responsive">
+                        <tr>
+                            <td><strong>ID</strong></td>
+                            <td><strong>TITULO</strong></td>
+                            <td><strong>REQUISITOS</strong></td>
+                            <td><strong>FECHA</strong></td>
+                            <td><strong>ESTADO</strong></td>
+                            <td><strong>ACCIONES</strong></td>
+                        </tr>
+                        <tr ng-repeat="a in actividades">
+                            <td>{{a.id}}</td>
+                            <td>{{a.titulo}}</td>
+                            <td>{{a.requisitos}}</td>
+                            <td>{{a.fecha}}</td>
+                            <td>{{a.estado}}</td>
+                            <td style="width:100px;">
+                                <button class="btn btn-primary btn-xs" ng-click="visualizar(a.id)">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </button>
+                                <button class="btn btn-primary btn-xs" ng-click="modificar(a.id)">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-click="eliminar(a.id)">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>                    
+                </div>
+
+                
                 <div class="panel-footer">
-                    Footer
+                    &nbsp;
                 </div>
             </div>
         </div>

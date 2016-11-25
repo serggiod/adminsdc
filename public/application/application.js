@@ -1,8 +1,7 @@
-angular.module('adminadd',
+angular.module('legapp',
 	[
 		'ngRoute'
 		,'mgcrea.ngStrap'
-		,'angular-md5'
 		//addmodule.
 	])
 	.config(function($routeProvider,$httpProvider){
@@ -13,20 +12,11 @@ angular.module('adminadd',
 		
 	    $routeProvider
 	    	.when('/',{
-	    		redirectTo:'/login'
+	    		redirectTo:'/actividad'
 	    	})
-			.when('/login',{
-				templateUrl:'views/loginView.html',
-				controller:'loginController'
-			})
-			.when('/logout',{
-				templateUrl:'views/logoutView.html',
-				controller:'logoutController'
-			})
 			.when('/actividad',{
 				templateUrl:'views/actividadView.html',
 				controller:'actividadController'
 			})
-			//addroute.
-			.otherwise({redirectTo:'/login'});
+			.otherwise({redirectTo:'/actividad'});
 	});
