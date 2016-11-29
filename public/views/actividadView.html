@@ -124,7 +124,7 @@
                                                     AUTORIZAR / Subir Archivo
                                                 </h4>
                                             </div>
-                                            <div class="panel-body"><input type="file" lang="es" class="btn btn-success" multiple="true"/></div>
+                                            <div class="panel-body"><input id="archivos" type="file" lang="es" class="btn btn-success" multiple="true"  onchange="angular.element(this).scope().dialogs.autorizarSubirArchivo.onchange(this)"/></div>
                                             <div class="panel-footer clearfix">
                                                 <button ng-click="dialogs.autorizarSubirArchivo.no()" class="btn btn-danger  pull-left">No</button>
                                                 <button ng-click="dialogs.autorizarSubirArchivo.si()" class="btn btn-success pull-right">Si</button>
@@ -152,13 +152,16 @@
                                 </div>
                     <table class="table table-striped table-hover table-bordered table-responsive text-center">
                         <tr>
+                            
+                            <td style="width:40px;"><strong>ID</strong></td>
                             <td><strong>ARCHIVO</strong></td>
                             <td style="width:80px;"><strong>TIPO</strong></td>
                             <td style="width:80px;"><strong>ACCIONES</strong></td>
                         </tr>
-                        <tr ng-repeat="a in modelo.archivos">
+                        <tr ng-repeat="(k,a) in modelo.archivos">
+                            <td>{{k}}</td>
                             <td>
-                                <img src="/imgcdn/actividad/{{a.archivo}}" width="150px"/>
+                                <img src="{{a.archivo}}" width="150px"/>
                             </td>
                             <td>{{a.tipo}}</td>
                             <td>
@@ -236,7 +239,7 @@
                                                     AUTORIZAR / Subir Archivo
                                                 </h4>
                                             </div>
-                                            <div class="panel-body"><input type="file" lang="es" class="btn btn-success" multiple="true"/></div>
+                                            <div class="panel-body"><input id="archivos" type="file" lang="es" class="btn btn-success" multiple="true" onchange="angular.element(this).scope().dialogs.autorizarSubirArchivo.onchange(this)"/></div>
                                             <div class="panel-footer clearfix">
                                                 <button ng-click="dialogs.autorizarSubirArchivo.no()" class="btn btn-danger  pull-left">No</button>
                                                 <button ng-click="dialogs.autorizarSubirArchivo.si()" class="btn btn-success pull-right">Si</button>
@@ -270,7 +273,7 @@
                         </tr>
                         <tr ng-repeat="a in modelo.archivos">
                             <td>
-                                <img src="/imgcdn/actividad/{{a.archivo}}" width="150px"/>
+                                <img src="{{a.archivo}}" width="150px"/>
                             </td>
                             <td>{{a.tipo}}</td>
                             <td>
@@ -340,7 +343,7 @@
                         </tr>
                         <tr ng-repeat="a in modelo.archivos">
                             <td>
-                                <img src="/imgcdn/actividad/{{a.archivo}}" width="150px"/>
+                                <img src="{{a.archivo}}" width="150px"/>
                             </td>
                             <td>{{a.tipo}}</td>
                         </tr>
