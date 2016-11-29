@@ -165,7 +165,7 @@
                             </td>
                             <td>{{a.tipo}}</td>
                             <td>
-                                <button ng-click="forms.actividadNuevo.eliminarArchivos(a.id)" class="btn btn-danger btn-xs" alt="Eliminar Archivo" type="button">
+                                <button ng-click="forms.actividadNuevo.eliminarArchivos(k)" class="btn btn-danger btn-xs" alt="Eliminar Archivo" type="button">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </td>
@@ -380,23 +380,23 @@
                             <td><strong>ESTADO</strong></td>
                             <td style="width:150px;"><strong>ACCIONES</strong></td>
                         </tr>
-                        <tr ng-repeat="l in lista">
+                        <tr ng-repeat="(k,l) in lista">
                             <td>{{l.id}}</td>
                             <td>{{l.titulo}}</td>
                             <td>{{l.requisitos}}</td>
                             <td>{{l.fecha}}</td>
                             <td>{{l.estado}}</td>
                             <td>
-                                <button ng-click="forms.actividadListar.visualizarActividad(l.id)" class="btn btn-primary btn-xs" type="button">
+                                <button ng-click="forms.actividadListar.visualizarActividad(k)" class="btn btn-primary btn-xs" type="button">
                                     <i class="glyphicon glyphicon-eye-open"></i>
                                 </button>
-                                <button ng-click="forms.actividadListar.modificarActividad(l.id)" class="btn btn-primary btn-xs" type="button">
+                                <button ng-click="forms.actividadListar.modificarActividad(k)" class="btn btn-primary btn-xs" type="button">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
-                                <button ng-click="forms.actividadListar.activarActividad(l.id)" class="btn btn-primary btn-xs" type="button">
+                                <button ng-click="forms.actividadListar.activarActividad(k)" class="btn btn-primary btn-xs" type="button">
                                     <i class="glyphicon glyphicon-random"></i>
                                 </button>
-                                <button ng-click="forms.actividadListar.eliminarActividad(l.id)" class="btn btn-danger btn-xs" type="button">
+                                <button ng-click="forms.actividadListar.eliminarActividad(k)" class="btn btn-danger btn-xs" type="button">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </td>
