@@ -24,7 +24,6 @@ angular
 	$scope.modelo = {
 		key:'',
 		id:'',
-		tipo:'',
 		titulo:'',
 		actividad:'',
 		requisitos:'',
@@ -52,7 +51,6 @@ angular
 			},
 			si:()=>{
 				$scope.displayFalse();
-				/*
 				$http
 					.get($scope.routes.get.actividad+$scope.modelo.id)
 					.error(()=>{console.log($scope.routes.get.actividad+$scope.modelo.id+' : No Data');})
@@ -66,8 +64,6 @@ angular
 						$scope.modelo.archivos=json.rows.archivos;
 						$scope.forms.actividadModificar.display=true;
 					}});
-				*/
-				$scope.forms.actividadModificar.display=true;
 			}
 		},
 		autorizarActivar:{
@@ -102,7 +98,7 @@ angular
 			si:()=>{
 				if($scope.dialogs.autorizarSubirArchivo.input && $scope.dialogs.autorizarSubirArchivo.tmp){
 					for(i in $scope.dialogs.autorizarSubirArchivo.tmp){
-						$scope.modelo.archivos.push($scope.dialogs.autorizarSubirArchivo.tmp[i]);
+						$scope.modelo.archivos.unshift($scope.dialogs.autorizarSubirArchivo.tmp[i]);
 					}
 					$scope.dialogs.autorizarSubirArchivo.input.value='';
 					delete $scope.dialogs.autorizarSubirArchivo.tmp;
@@ -174,21 +170,20 @@ angular
 			},
 			aceptar:()=>{
 				$scope.displayFalse();
-				alert('Implementar con el modelo de datos.');
-				/*
-				$http
-					.post($scope.routes.post.actividad,$scope.modelo)
-					.error(()=>{console.log($scope.routes.post.actividad+' : No Data');})
-					.success((json)=>{if(json.result){
-						$scope.lista.push({
-							id:json.rows.id,
-							titulo:$scope.modelo.titulo,
-							fecha:$scope.modelo.fecha,
-							requisitos:$scope.modelo.requisitos,
-							estado:'INACTIVO'
-						});
-					}});
-				*/
+				$session.autorize(()=>{
+					$http
+						.post($scope.routes.post.actividad,$scope.modelo)
+						.error(()=>{console.log($scope.routes.post.actividad+' : No Data');})
+						.success((json)=>{if(json.result){
+							$scope.lista.unshift({
+								id:json.rows.id,
+								titulo:json.rows.titulo,
+								fecha:json.rows.fecha,
+								requisitos:json.rows.requisitos,
+								estado:json.rows.estado
+							});
+						}});
+				});
 				$scope.forms.actividadListar.display=true;
 			},
 			subirArchivos:()=>{
@@ -208,23 +203,20 @@ angular
 			},
 			aceptar:()=>{
 				$scope.displayFalse();
-				/*
 				$http
 					.put($scope.routes.put.actividad+$scope.modelo.id)
 					.error(()=>{console.log($scope.routes.put.actividad+$scope.modelo.id+' : No Data');})
 					.success((json)=>{if(json.result){
 						$scop.lista.splice($scope.modelo.key,1);
-						$scope.lista.push({
+						$scope.lista.unshift({
 							id:$scope.modelo.id,
 							titulo:$scope.modelo.titulo,
 							fecha:$scope.modelo.fecha,
 							requisitos:$scope.modelo.requisitos,
 							estado:$scope.modelo.estado
 						});
-
+						$scope.forms.actividadListar.display=true;
 					}});
-				*/
-				$scope.forms.actividadListar.display=true;
 			},
 			subirArchivos:()=>{
 				$scope.dialogs.autorizarSubirArchivo.display=true;
@@ -248,11 +240,10 @@ angular
 				d = new Date();
 				$scope.displayFalse();
 				$scope.modelo.id='';
-				$scope.modelo.tipo='';
 				$scope.modelo.titulo='';
 				$scope.modelo.actividad='';
 				$scope.modelo.requisitos='';
-				$scope.modelo.estado='';
+				$scope.modelo.estado='INACTIVO';
 				$scope.modelo.fecha='';
 				$scope.modelo.fecha += d.getFullYear().toString()+'-';
 				$scope.modelo.fecha += (d.getMonth() +1).toString()+'-';
@@ -266,23 +257,20 @@ angular
 			visualizarActividad:(k)=>{
 				id = $scope.lista[k].id;
 				$scope.displayFalse();
-				/*
 				$http
 					.get($scope.routes.get.actividad+id)
 					.error(()=>{console.log($scope.routes.get.actividad+id+' : No Data');})
 					.success((json)=>{if(json.result){
-						$scope.modelo.id=json.rows.id=;
+						$scope.modelo.id=json.rows.id;
 						$scope.modelo.tipo=json.rows.tipo;
 						$scope.modelo.titulo=json.rows.titulo;
 						$scope.modelo.actividad=json.rows.actividad;
 						$scope.modelo.requisitos=json.rows.requisitos;
 						$scope.modelo.estado=json.rows.estado;
 						$scope.modelo.fecha=json.rows.fecha;
-						$scope.modelo.archivos=json.rows.fecha.archivos;
+						$scope.modelo.archivos=json.rows.archivos;
 						$scope.forms.actividadVisualizar.display=true;
 					}});
-				*/
-				$scope.forms.actividadVisualizar.display=true;
 			},
 			modificarActividad:(k)=>{
 				$scope.modelo.key=k;
@@ -352,7 +340,15 @@ angular
 			.get(uri)
 			.error(()=>{console.log(uri+' : No Data');})
 			.success((json)=>{if(json.result){
-				$scope.lista=json.rows;
+				for(i in json.rows){
+					$scope.lista.push({
+						id:json.rows[i].id,
+						titulo:json.rows[i].titulo,
+						fecha:json.rows[i].fecha,
+						requisitos:json.rows[i].requisitos,
+						estado:json.rows[i].estado
+					});
+				}
 				$scope.forms.actividadListar.display=true;
 			}});
 	};
