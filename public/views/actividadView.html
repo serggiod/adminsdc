@@ -271,13 +271,13 @@
                             <td style="width:80px;"><strong>TIPO</strong></td>
                             <td style="width:80px;"><strong>ACCIONES</strong></td>
                         </tr>
-                        <tr ng-repeat="a in modelo.archivos">
+                        <tr ng-repeat="(k,a) in modelo.archivos">
                             <td>
                                 <img src="{{a.archivo}}" width="150px"/>
                             </td>
                             <td>{{a.tipo}}</td>
                             <td>
-                                <button ng-click="forms.actividadModificar.eliminarArchivos(a.id)" class="btn btn-danger btn-xs" alt="Eliminar Archivo" type="button">
+                                <button ng-click="forms.actividadModificar.eliminarArchivos(k)" class="btn btn-danger btn-xs" alt="Eliminar Archivo" type="button">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </td>

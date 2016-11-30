@@ -5,19 +5,17 @@ angular
 	$scope.routes = {
 		get:{
 			actividades:'/rest/ful/adminadd/index.php/actividades',
-			archivos:'/rest/ful/adminadd/index.php/archivos',
-			actividad:'/rest/ful/adminadd/index.php/actividad/'
+			actividad  :'/rest/ful/adminadd/index.php/actividad/'
 		},
 		post:{
-			actividad:'/rest/ful/adminadd/index.php/actividad',
-			archivo:'/rest/ful/adminadd/index.php/archivo'
+			actividad  :'/rest/ful/adminadd/index.php/actividad'
 		},
 		put:{
-			actividad:'/rest/ful/adminadd/index.php/actividad/'
+			actividad  :'/rest/ful/adminadd/index.php/actividad/'
 		},
 		delete:{
-			actividad:'/rest/ful/adminadd/index.php/actividad/',
-			archivo:'/rest/ful/adminadd/index.php/archivo/'
+			actividad  :'/rest/ful/adminadd/index.php/actividad/',
+			archivo    :'/rest/ful/adminadd/index.php/actividad/archivo/'
 		}
 	};
 
@@ -37,7 +35,7 @@ angular
 	// Estructura de control de la presentacion.
 	$scope.statusbar = {
 		display:false,
-		progress:'70'
+		progress:'0'
 	};
 
 	$scope.dialogs = {
@@ -74,6 +72,15 @@ angular
 			},
 			si:()=>{
 				$scope.displayFalse();
+				uri = $scope.routes.put.actividad+$scope.modelo.id+'/activar';
+				$http
+					.put(uri,{estado:$scope.lista[$scope.modelo.key].estado})
+					.error(()=>{console.log(uri+' : No Data');})
+					.success((json)=>{if(json.result){
+						$scope.lista[$scope.modelo.key].estado=json.rows;
+						$scope.modelo.key=null;
+						$scope.modelo.id=null;
+					}});
 				$scope.forms.actividadListar.display=true;
 			}
 		},
@@ -85,74 +92,76 @@ angular
 			},
 			si:()=>{
 				$scope.displayFalse();
-				$scope.forms.actividadListar.display=true;
+				uri = $scope.routes.delete.actividad+$scope.modelo.id;
+				$http
+					.delete(uri)
+					.error(()=>{console.log(uri+' : No Data')})
+					.success((json)=>{if(json.result){
+						$scope.lista.splice($scope.modelo.key,1);
+						$scope.modelo.key=null;
+						$scope.modelo.id=null;
+						$scope.forms.actividadListar.display=true;
+					}});
 			}
 		},
 		autorizarSubirArchivo:{
 			display:false,
+			input:null,
+			tmp:[],
 			no:()=>{
-				if($scope.dialogs.autorizarSubirArchivo.tmp) delete $scope.dialogs.autorizarSubirArchivo.tmp;
+				$scope.dialogs.autorizarSubirArchivo.tmp.splice(0);
 				if($scope.dialogs.autorizarSubirArchivo.input) $scope.dialogs.autorizarSubirArchivo.input.value='';
 				$scope.dialogs.autorizarSubirArchivo.display=false;
 			},
 			si:()=>{
-				if($scope.dialogs.autorizarSubirArchivo.input && $scope.dialogs.autorizarSubirArchivo.tmp){
+				if($scope.dialogs.autorizarSubirArchivo.tmp.length){
 					for(i in $scope.dialogs.autorizarSubirArchivo.tmp){
 						$scope.modelo.archivos.unshift($scope.dialogs.autorizarSubirArchivo.tmp[i]);
 					}
 					$scope.dialogs.autorizarSubirArchivo.input.value='';
-					delete $scope.dialogs.autorizarSubirArchivo.tmp;
+					$scope.dialogs.autorizarSubirArchivo.tmp.splice(0);
 				}
 				$scope.dialogs.autorizarSubirArchivo.display=false;
 			},
 			onchange:(input)=>{
 				$scope.dialogs.autorizarSubirArchivo.input = input;
-				$scope.dialogs.autorizarSubirArchivo.tmp = [];
 				for(i in input.files){
 					if(input.files[i].type.toString().substring(0,5)==='image'){
 						reader = new FileReader();
-						reader.readAsDataURL(input.files[i]);	
 						reader.onload = (img)=>{
-							archivo = img.target.result.toString(); 
-							x = archivo.indexOf(';');
-							tipo = img.target.result.substring(5,x);
+							imgstr = img.target.result.toString(); 
+							x = imgstr.indexOf(';');
+							tipo = imgstr.substring(5,x);
 							archivo = {
 								id:null,
-								archivo:archivo,
+								archivo:imgstr,
 								tipo:tipo,
 								resource:'local'
 							};
 							$scope.dialogs.autorizarSubirArchivo.tmp.push(archivo);
 						};
+						reader.readAsDataURL(input.files[i]);
 					}
 				}
 			},
 		},
 		autorizarEliminarArchivo:{
-			id:null,
+			key:null,
 			display:false,
 			no:()=>{
-				$scope.dialogs.autorizarEliminarArchivo.id=null;
 				$scope.dialogs.autorizarEliminarArchivo.display=false;
 			},
 			si:()=>{
-				index = $scope.dialogs.autorizarEliminarArchivo.id;
-				console.log($scope.modelo.archivos[index].id,$scope.modelo.archivos[index].resource);
-				if($scope.modelo.archivos[index].id===null && $scope.modelo.archivos[index].resource==='local'){
-					$scope.modelo.archivos.splice(index,1);
+				key = $scope.dialogs.autorizarEliminarArchivo.key;
+				if($scope.modelo.archivos[key].resource==='local'){
+					$scope.modelo.archivos.splice(key,1);
 				}
-				if($scope.modelo.archivos[index].resurce=='remote'){
-					id = $scope.modelo.archivos[index].id;
-					alert('Implementar con el modelo de datos rest.');
-					/*
+				if($scope.modelo.archivos[key].resource==='remote'){
+					id = $scope.modelo.archivos[key].id;
 					$http
 						.delete($scope.routes.delete.archivo+id)
 						.error(()=>{console.log($scope.routes.delete.archivo+id+' : No Data');})
-						.success((json)=>{if(json.result){
-							$scope.modelo.archivos.splice(index,1);
-							$scope.dialogs.autorizarEliminarArchivo.display=false;
-						}});
-					*/
+						.success((json)=>{if(json.result) $scope.modelo.archivos.splice(key,1); });
 				}
 				$scope.dialogs.autorizarEliminarArchivo.display=false;
 			}
@@ -189,8 +198,8 @@ angular
 			subirArchivos:()=>{
 				$scope.dialogs.autorizarSubirArchivo.display=true;
 			},
-			eliminarArchivos:(id)=>{
-				$scope.dialogs.autorizarEliminarArchivo.id=id;
+			eliminarArchivos:(key)=>{
+				$scope.dialogs.autorizarEliminarArchivo.key=key;
 				$scope.dialogs.autorizarEliminarArchivo.display=true;
 			}
 		},
@@ -203,17 +212,18 @@ angular
 			},
 			aceptar:()=>{
 				$scope.displayFalse();
+				uri = $scope.routes.put.actividad+$scope.modelo.id;
 				$http
-					.put($scope.routes.put.actividad+$scope.modelo.id)
-					.error(()=>{console.log($scope.routes.put.actividad+$scope.modelo.id+' : No Data');})
+					.put(uri,$scope.modelo)
+					.error(()=>{console.log(uri+' : No Data');})
 					.success((json)=>{if(json.result){
-						$scop.lista.splice($scope.modelo.key,1);
+						$scope.lista.splice($scope.modelo.key,1);
 						$scope.lista.unshift({
-							id:$scope.modelo.id,
-							titulo:$scope.modelo.titulo,
-							fecha:$scope.modelo.fecha,
-							requisitos:$scope.modelo.requisitos,
-							estado:$scope.modelo.estado
+							id:json.rows.id,
+							titulo:json.rows.titulo,
+							fecha:json.rows.fecha,
+							requisitos:json.rows.requisitos,
+							estado:json.rows.estado
 						});
 						$scope.forms.actividadListar.display=true;
 					}});
@@ -221,8 +231,8 @@ angular
 			subirArchivos:()=>{
 				$scope.dialogs.autorizarSubirArchivo.display=true;
 			},
-			eliminarArchivos:(id)=>{
-				$scope.modelo.archivo=id;
+			eliminarArchivos:(key)=>{
+				$scope.dialogs.autorizarEliminarArchivo.key=key;
 				$scope.dialogs.autorizarEliminarArchivo.display=true;
 			}
 		},
@@ -282,35 +292,12 @@ angular
 				$scope.modelo.key=k;
 				$scope.modelo.id=$scope.lista[k].id
 				$scope.displayFalse();
-				/*
-				uri $scope.rutes.put.actividad+$scope.modelo.id+'/activar';
-				$http
-					.put(uri)
-					.error(()=>{console.log(uri+' : No Data'));})
-					.success((json)=>{if(json.result){
-						$scope.lista[$scope.modelo.key].estado=json.rows;
-						$scope.modelo.key=null;
-						$scope.modelo.id=null;ss
-					}});
-				*/
 				$scope.dialogs.autorizarActivar.display=true;
 			},
 			eliminarActividad:(k)=>{
 				$scope.modelo.key=k;
 				$scope.modelo.id=$scope.lista[k].id
 				$scope.displayFalse();
-				/*
-				uri = $scope.routes.delete.actividad+$scope.modelo.id;
-				$http
-					.delete(uri)
-					.error(()=>{console.log(uri+' : No Data')})
-					.success((json)=>{if(json.result){
-						$scope.lista.splice($scope.modelo.key,1);
-						$scope.modelo.key=null;
-						$scope.modelo.id=null;
-						$scope.dialogs.autorizarEliminar.display=true;
-					}});
-				*/
 				$scope.dialogs.autorizarEliminar.display=true;
 			}
 		},
