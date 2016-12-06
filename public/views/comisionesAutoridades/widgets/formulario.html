@@ -1,0 +1,34 @@
+<div ng-show="formularios.nuevo.display" class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title text-capitalize">
+                    FORMULARIO / Comision / Autoridad / Nuevo
+                </h4>
+            </div>
+            <div class="panel-body">
+                
+                <!-- Titulo -->
+                <div class="input-group">
+                    <div class="input-group-addon">AUTORIDAD</div>
+                    <select class="form-control" type="text" ng-model="modelo.autoridad">
+                        <option ng-repeat="a in autoridades" value="{{a}}">{{a}}</option>
+                    </select>
+                </div>
+
+                <!-- Actividad -->
+                <div class="input-group">
+                    <div class="input-group-addon">DIPUTADO</div>
+                    <select class="form-control" type="text" ng-model="modelo.diputado_id">
+                        <option ng-repeat="d in diputados" value="{{d.id}}">{{d.diputado}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="panel-footer clearfix">
+                <button ng-click="formularios.nuevo.cancelar()" class="btn btn-danger pull-left">Cancelar</button>
+                <button ng-click="formularios.nuevo.aceptar()" class="btn btn-success pull-right">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

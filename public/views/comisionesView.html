@@ -1,0 +1,267 @@
+<div class="container-fluid">
+    
+    <!-- Status: Procesando Datos... Espere -->
+    <div ng-show="statusbar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{statusbar.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{statusbar.progress}}%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialog: Autorizar Modificar -->
+    <div ng-show="dialogs.autorizarModificar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        AUTORIZAR / Modificar
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    ¿Esta seguro que desea modificar este registro?
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="dialogs.autorizarModificar.no()" class="btn btn-danger pull-left">No</button>
+                    <button ng-click="dialogs.autorizarModificar.si()" class="btn btn-success pull-right">Si</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialog: Autorizar Activar/Desactivar -->
+    <div ng-show="dialogs.autorizarActivar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        AUTORIZAR / Activar/Desactivar
+                    </h4>
+                </div>
+                <div class="panel-body">¿Esta seguro que desea activar/desactivar este registro?</div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="dialogs.autorizarActivar.no()" class="btn btn-danger  pull-left">No</button>
+                    <button ng-click="dialogs.autorizarActivar.si()" class="btn btn-success pull-right">Si</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialog: Autorizar Eliminar -->
+    <div ng-show="dialogs.autorizarEliminar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        AUTORIZAR / Eliminar
+                    </h4>
+                </div>
+                <div class="panel-body">¿Esta seguro que desea eliminar este registro?</div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="dialogs.autorizarEliminar.no()" class="btn btn-danger  pull-left">No</button>
+                    <button ng-click="dialogs.autorizarEliminar.si()" class="btn btn-success pull-right">Si</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario: Nuevo -->
+    <div ng-show="formularios.ingresar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Comision / Nuevo
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    
+                    <!-- id -->
+                    <div class="input-group">
+                        <div class="input-group-addon">ID</div>
+                        <input type="text" class="form-control" readonly="true" ng-model="comision.id">
+                    </div>
+
+                    <!-- COMISION-->
+                    <div class="input-group">
+                        <div class="input-group-addon">COMISION EN SILEJU<br/><small>(seleccione el nombre de la comision en el SILEJU)</small></div>
+                        <select class="form-control" type="text" ng-model="comision.departamento">
+                            <option ng-repeat="d in departamentos" value="{{d}}">{{d.dpto_detalle}}</option>
+                        </select>
+                    </div>
+
+                    <!-- TIPO-->
+                    <div class="input-group">
+                        <div class="input-group-addon">TIPO<br/><small>(seleccione el tipo de la comision)</small></div>
+                        <select class="form-control" type="text" ng-model="comision.tipo">
+                            <option ng-repeat="t in tipos" value="{{t}}">{{t.nombre}}</option>
+                        </select>
+                    </div>
+
+                    <!-- COMPETENCIAS -->
+                    <div class="input-group">
+                        <div class="input-group-addon">COMPETENCIAS<br/><small>(articulo que describe las competecias de la comision)</div>
+                        <textarea class="form-control" type="text"  ng-model="comision.competencias"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="formularios.ingresar.cancelar()" class="btn btn-danger pull-left">Cancelar</button>
+                    <button ng-click="formularios.ingresar.aceptar()" class="btn btn-success pull-right">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form: Actividad Modificar -->
+    <div ng-show="formularios.modificar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Comision / Modificar
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    
+                     <!-- id -->
+                    <div class="input-group">
+                        <div class="input-group-addon">ID</div>
+                        <input type="text" class="form-control" readonly="true" ng-model="comision.id">
+                    </div>
+
+                    <!-- COMISION-->
+                    <div class="input-group">
+                        <div class="input-group-addon">COMISION EN SILEJU<br/><small>(seleccione el nombre de la comision en el SILEJU)</small></div>
+                        <select class="form-control" type="text" ng-model="comision.departamento">
+                            <option ng-repeat="d in departamentos" value="{{d}}">{{d.dpto_detalle}}</option>
+                        </select>
+                    </div>
+
+                    <!-- TIPO-->
+                    <div class="input-group">
+                        <div class="input-group-addon">TIPO<br/><small>(seleccione el tipo de la comision)</small></div>
+                        <select class="form-control" type="text" ng-model="comision.tipo">
+                            <option ng-repeat="t in tipos" value="{{t}}">{{t.nombre}}</option>
+                        </select>
+                    </div>
+
+                    <!-- COMPETENCIAS -->
+                    <div class="input-group">
+                        <div class="input-group-addon">COMPETENCIAS<br/><small>(articulo que describe las competecias de la comision)</div>
+                        <textarea class="form-control" type="text"  ng-model="comision.competencias"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="formularios.modificar.cancelar()" class="btn btn-danger pull-left" type="button">Cancelar</button>
+                    <button ng-click="formularios.modificar.aceptar()" class="btn btn-success pull-right" type="button">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form: Actividad Visualizar -->
+    <div ng-show="formularios.visualizar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Comision / Visualizar
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    
+                     <!-- id -->
+                    <div class="input-group">
+                        <div class="input-group-addon">ID</div>
+                        <input type="text" class="form-control" readonly="true" ng-model="comision.id">
+                    </div>
+
+                    <!-- COMISION-->
+                    <div class="input-group">
+                        <div class="input-group-addon">COMISION EN SILEJU<br/><small>(seleccione el nombre de la comision en el SILEJU)</small></div>
+                        <select class="form-control" type="text" ng-model="comision.departamento" disabled="true">
+                            <option ng-repeat="d in departamentos" value="{{d}}">{{d.dpto_detalle}}</option>
+                        </select>
+                    </div>
+
+                    <!-- TIPO-->
+                    <div class="input-group">
+                        <div class="input-group-addon">TIPO<br/><small>(seleccione el tipo de la comision)</small></div>
+                        <select class="form-control" type="text" ng-model="comision.tipo" disabled="true">
+                            <option ng-repeat="t in tipos" value="{{t}}">{{t.nombre}}</option>
+                        </select>
+                    </div>
+
+                    <!-- COMPETENCIAS -->
+                    <div class="input-group">
+                        <div class="input-group-addon">COMPETENCIAS<br/><small>(articulo que describe las competecias de la comision)</div>
+                        <textarea class="form-control" type="text"  ng-model="comision.competencias" disabled="true"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="formularios.visualizar.aceptar()" class="btn btn-success pull-right">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario: Listar -->
+    <div ng-show="formularios.listar.display" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Comisiones / Lista
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <button ng-click="formularios.listar.nuevo()" class="btn btn-success">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        Comision
+                    </button>
+                    <table class="table table-striped table-hover table-bordered table-responsive text-center">
+                        <tr>
+                            <td><strong>ID</strong></td>
+                            <td><strong>COMISION</strong></td>
+                            <td><strong>TIPO</strong></td>
+                            <td><strong>ESTADO</strong></td>
+                            <td style="width:150px;"><strong>ACCIONES</strong></td>
+                        </tr>
+                        <tr ng-repeat="(k,l) in modelo">
+                            <td>{{l.id}}</td>
+                            <td>{{l.departamento.dpto_detalle}}</td>
+                            <td>{{l.tipo.nombre}}</td>
+                            <td>{{l.estado}}</td>
+                            <td>
+                                <button ng-click="formularios.listar.visualizar(k)" class="btn btn-primary btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </button>
+                                <button ng-click="formularios.listar.modificar(k)" class="btn btn-primary btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
+                                <button ng-click="formularios.listar.activar(k)" class="btn btn-primary btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-random"></i>
+                                </button>
+                                <button ng-click="formularios.listar.autoridades(k)" class="btn btn-primary btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </button>
+                                <button ng-click="formularios.listar.eliminar(k)" class="btn btn-danger btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>                    
+                </div>
+
+                
+                <div class="panel-footer">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

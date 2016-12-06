@@ -1,5 +1,4 @@
-angular.module('legapp',
-	[
+angular.module('legapp',[
 		'ngRoute'
 		,'mgcrea.ngStrap'
 		//addmodule.
@@ -12,11 +11,15 @@ angular.module('legapp',
 
 	    $routeProvider
 	    	.when('/',{
-	    		redirectTo:'/actividad'
+	    		redirectTo:'/comisiones'
 	    	})
-			.when('/actividad',{
-				templateUrl:'views/actividadView.html',
-				controller:'actividadController'
+			.when('/comisiones',{
+				templateUrl:'views/comisionesView.html',
+				controller:'comisionesController'
 			})
-			.otherwise({redirectTo:'/actividad'});
+			.when('/comisiones-autoridades/:id',{
+				templateUrl:'views/comisionesAutoridadesView.html',
+				controller:'comisionesAutoridadesController'
+			})
+			.otherwise({redirectTo:'/comisiones'});
 	});
